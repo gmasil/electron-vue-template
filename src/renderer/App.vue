@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { ipcRenderer } from "./electron";
+import * as electron from "./electron";
 
-ipcRenderer.send("message", "Hello from App.vue!");
+electron.log("Hello from App.vue!");
 </script>
 
 <style scoped>

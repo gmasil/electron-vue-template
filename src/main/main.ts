@@ -1,12 +1,15 @@
 import { app, BrowserWindow, ipcMain, IpcMainEvent } from "electron";
-import { join } from "path";
+import * as path from "path";
+import * as fs from "fs/promises";
+
+let mainWindow: BrowserWindow;
 
 function createWindow(): void {
-  const mainWindow: BrowserWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "preload.js"),
       nodeIntegration: false,
       contextIsolation: true,
     },
@@ -16,7 +19,7 @@ function createWindow(): void {
     const rendererPort: string = process.argv[2];
     mainWindow.loadURL(`http://localhost:${rendererPort}`);
   } else {
-    mainWindow.loadFile(join(app.getAppPath(), "renderer", "index.html"));
+    mainWindow.loadFile(path.join(app.getAppPath(), "renderer", "index.html"));
   }
 }
 
@@ -36,6 +39,13 @@ app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("message", (_event: IpcMainEvent, message: unknown) => {
-  console.log(message);
+ipcMain.on("log", (_event: IpcMainEvent, msg: string) => {
+  // eslint-disable-next-line no-console
+  console.log(msg);
+});
+
+ipcMain.on("request-readdir", (_event: IpcMainEvent, dir: string) => {
+  fs.readdir(dir).then((files: string[]) => {
+    mainWindow.webContents.send("response-readdir", { dir, files });
+  });
 });
