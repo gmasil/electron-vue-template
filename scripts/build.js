@@ -1,34 +1,35 @@
-const Path = require('path');
-const Chalk = require('chalk');
-const FileSystem = require('fs');
-const compileTs = require('./private/tsc');
+const Path = require("path");
+const Colors = require("colors/safe");
+const FileSystem = require("fs");
+const compileTs = require("./private/tsc");
 
 function buildRenderer() {
-    const Vite = require('vite');
-    const viteConfig = require(Path.join(__dirname, '..', 'config', 'vite.js'));
+    const Vite = require("vite");
+    const viteConfig = require(Path.join(__dirname, "..", "config", "vite.js"));
 
     return Vite.build({
         ...viteConfig,
-        base: './',
-        mode: 'production'
+        base: "./",
+        mode: "production",
     });
 }
 
 function buildMain() {
-    const mainPath = Path.join(__dirname, '..', 'src', 'main');
+    const mainPath = Path.join(__dirname, "..", "src", "main");
     return compileTs(mainPath);
 }
 
-FileSystem.rmSync(Path.join(__dirname, '..', 'build'), {
+FileSystem.rmSync(Path.join(__dirname, "..", "build"), {
     recursive: true,
     force: true,
-})
+});
 
-console.log(Chalk.blueBright('Transpiling renderer & main...'));
+console.log(Colors.brightBlue("Transpiling renderer & main..."));
 
-Promise.allSettled([
-    buildRenderer(),
-    buildMain(),
-]).then(() => {
-    console.log(Chalk.greenBright('Renderer & main successfully transpiled! (ready to be built with electron-builder)'));
+Promise.allSettled([buildRenderer(), buildMain()]).then(() => {
+    console.log(
+        Colors.brightGreen(
+            "Renderer & main successfully transpiled! (ready to be built with electron-builder)"
+        )
+    );
 });
