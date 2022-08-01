@@ -52,13 +52,13 @@ async function startElectron() {
 
     electronProcess.stdout.on("data", (data) =>
         process.stdout.write(
-            Colors.brightBlue(`[electron] `) + Colors.white(data.toString())
+            Colors.brightBlue("[electron] ") + Colors.white(data.toString())
         )
     );
 
     electronProcess.stderr.on("data", (data) =>
         process.stderr.write(
-            Colors.brightBlue(`[electron] `) + Colors.white(data.toString())
+            Colors.brightBlue("[electron] ") + Colors.white(data.toString())
         )
     );
 
@@ -116,12 +116,12 @@ async function start() {
     copyStaticFiles();
     startElectron();
 
-    const path = Path.join(__dirname, "..", "src", "main");
-    Chokidar.watch(path, {
-        cwd: path,
+    const pathToWatch = Path.join(__dirname, "..", "src", "main");
+    Chokidar.watch(pathToWatch, {
+        cwd: pathToWatch,
     }).on("change", (path) => {
         console.log(
-            Colors.brightBlue(`[electron] `) +
+            Colors.brightBlue("[electron] ") +
                 `Change in ${path}. reloading... 🚀`
         );
 

@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, IpcMainEvent } from "electron";
 import { join } from "path";
 
-function createWindow() {
-  const mainWindow = new BrowserWindow({
+function createWindow(): void {
+  const mainWindow: BrowserWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -13,7 +13,7 @@ function createWindow() {
   });
 
   if (process.env.NODE_ENV === "development") {
-    const rendererPort = process.argv[2];
+    const rendererPort: string = process.argv[2];
     mainWindow.loadURL(`http://localhost:${rendererPort}`);
   } else {
     mainWindow.loadFile(join(app.getAppPath(), "renderer", "index.html"));
@@ -36,6 +36,6 @@ app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("message", (event, message) => {
+ipcMain.on("message", (_event: IpcMainEvent, message: unknown) => {
   console.log(message);
 });

@@ -1,10 +1,6 @@
-<script setup lang="ts">
-const msg = "Electron + Vue3 template";
-</script>
-
 <template>
   <div id="hello">
-    <img src="http://vuejs.org/images/logo.png" />
+    <img src="http://vuejs.org/images/logo.png" alt="logo" />
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -30,6 +26,10 @@ const msg = "Electron + Vue3 template";
     </ul>
   </div>
 </template>
+
+<script setup lang="ts">
+const msg: string = "Electron + Vue3 template";
+</script>
 
 <style scoped>
 #hello {
