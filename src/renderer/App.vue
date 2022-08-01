@@ -1,12 +1,22 @@
+<template>
+  <div class="center">
+    <router-link to="/">Home</router-link>
+    <span> | </span>
+    <router-link to="/empty">Empty</router-link>
+  </div>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
 <script setup lang="ts">
-import Hello from "./components/Hello.vue";
 import { ipcRenderer } from "./electron";
 
 ipcRenderer.send("message", "Hello from App.vue!");
 </script>
 
-<template>
-  <div id="app">
-    <Hello />
-  </div>
-</template>
+<style scoped>
+.center {
+  text-align: center;
+}
+</style>

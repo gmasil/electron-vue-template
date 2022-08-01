@@ -1,7 +1,7 @@
 <template>
   <div id="hello">
     <img src="http://vuejs.org/images/logo.png" alt="logo" />
-    <h1>{{ msg }}</h1>
+    <h1>{{ message }}</h1>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-const msg: string = "Electron + Vue3 template";
+const message: string = "Electron + Vue3 template";
 </script>
 
 <style scoped>
