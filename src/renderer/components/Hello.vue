@@ -1,7 +1,7 @@
 <template>
   <div id="hello">
-    <img src="http://vuejs.org/images/logo.png" alt="logo" />
-    <h1>{{ message }}</h1>
+    <img class="mx-auto" src="http://vuejs.org/images/logo.png" alt="logo" />
+    <h1 class="text-2xl">{{ message }}</h1>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
